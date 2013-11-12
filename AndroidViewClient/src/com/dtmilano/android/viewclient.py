@@ -944,11 +944,14 @@ class EditText(TextView):
     def type(self, text):
         self.touch()
         time.sleep(1)
-        for c in text:
-            if c != ' ':
-                self.device.type(c)
-            else:
-                self.device.press('KEYCODE_SPACE', adbclient.DOWN_AND_UP)
+        if " " in text:
+            for c in text:
+                if c != ' ':
+                    self.device.type(c)
+                else:
+                    self.device.press('KEYCODE_SPACE', adbclient.DOWN_AND_UP)
+        else:
+            self.device.type(text)
         time.sleep(1)
 
     def backspace(self):
